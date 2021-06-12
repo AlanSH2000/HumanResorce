@@ -1,6 +1,6 @@
 /*
- ALAN DANIEL SEVILLA HERNANDEZ 
-2022525
+ ALAN DALAN DANIEL SEVILLA HERNANDEZ 
+20225252022525
  */
 package mx.cesba.login;
 
@@ -93,6 +93,11 @@ public class Read extends javax.swing.JFrame {
                 "Id", "FirstName", "LastName", "Age", "PhoneNumber", "Email", "Salary", "HireDate"
             }
         ));
+        TablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaDatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaDatos);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -237,9 +242,19 @@ public class Read extends javax.swing.JFrame {
         btn_borrar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btn_borrar.setForeground(new java.awt.Color(255, 0, 51));
         btn_borrar.setText("BORRAR");
+        btn_borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_borrarActionPerformed(evt);
+            }
+        });
 
         btn_actualizar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btn_actualizar.setText("ACTUALIZAR");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
 
         btn_consul.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btn_consul.setText("CONSULTAR");
@@ -300,14 +315,14 @@ public class Read extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addGap(18, 18, 18)
                                     .addComponent(txt_fn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_limpiar)
                                 .addGap(5, 5, 5))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(162, 168, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_agregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_borrar)
@@ -317,9 +332,9 @@ public class Read extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(btn_consul)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(111, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addComponent(btn_return)
                         .addContainerGap())))
         );
@@ -379,11 +394,16 @@ public class Read extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -423,6 +443,9 @@ public class Read extends javax.swing.JFrame {
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
         // TODO add your handling code here:
+        
+        limpiartable();
+        
         txt_id.setText("");
         txt_fn.setText("");
         txt_ln.setText("");
@@ -558,6 +581,87 @@ public class Read extends javax.swing.JFrame {
     private void txt_hdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hdKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_hdKeyTyped
+void actualizar(){
+            int id = Integer.parseInt(txt_id.getText());
+            String firstname = txt_fn.getText();
+            String lastname = txt_ln.getText();
+            int age = Integer.parseInt(txt_age.getText());
+            String email = txt_email.getText();
+            int phonenumber = Integer.parseInt(txt_pn.getText());
+            Double salary = Double.parseDouble(txt_sal.getText());
+            String hiredate = (txt_hd.getText().trim());
+            
+            String sql = "UPDATE employee set ID = '" + id+ "', FirstName= '" + firstname+ "', LastName= '" + lastname+ "' ,Age= '" + age+ "' ,Email= '" + email+ "' ,PhoneNumber= '" + phonenumber+ "' ,Salary= '" + salary+ "' ,HireDate= '" + hiredate+ "' where ID=" +id;
+                    
+                    try{
+                        cn = con.getConnection();
+                        st = cn.createStatement();
+                        st.executeUpdate(sql);
+                        JOptionPane.showMessageDialog(null,"DATOS ACTULIZADOS CORRECTAMENTE");
+                    } catch (Exception e){
+                        JOptionPane.showMessageDialog(null,"DATOS NO SE GUARDARAN CORRECTAMENTE");
+                        limpiartable();
+                        
+                    }
+            
+            
+        }
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // TODO add your handling code here:
+       int actualizar = TablaDatos.getSelectedRowCount();
+       if(actualizar>=1){
+           actualizar();
+           limpiartable();
+           listar();
+
+       }if(actualizar<=0){
+           JOptionPane.showMessageDialog(null,"NO HAY DATOS QUE ACTUALIZAR");
+           limpiartable();
+       }
+        
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void TablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDatosMouseClicked
+        // TODO add your handling code here:
+        int fila = TablaDatos.getSelectedRow();
+        
+        if (fila == -1){
+            JOptionPane.showMessageDialog(null,"NO HAS SELECCIONADO EL USUARIO");
+    
+        } else {
+            int row = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
+            
+            int id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
+            
+            String fn = (String) TablaDatos.getValueAt(fila, 1);
+            String ln = (String) TablaDatos.getValueAt(fila, 2);
+            int age = Integer.parseInt((String) TablaDatos.getValueAt(fila, 3).toString());
+            String email = (String) TablaDatos.getValueAt(fila, 5);
+            int phone = Integer.parseInt((String) TablaDatos.getValueAt(fila, 4).toString());
+            double salary = Double.parseDouble((String) TablaDatos.getValueAt(fila, 6).toString());
+            String hd = (String) TablaDatos.getValueAt(fila, 7);
+           
+           txt_id.setText(""+id);
+           txt_fn.setText(fn);
+           txt_ln.setText(ln);
+           txt_age.setText(""+age);
+           txt_email.setText(email);
+           txt_pn.setText(""+phone);
+           txt_sal.setText(""+salary);
+           txt_hd.setText(hd);
+           
+           
+    }
+        
+        
+    }//GEN-LAST:event_TablaDatosMouseClicked
+
+    private void btn_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_borrarActionPerformed
+        // TODO add your handling code here:
+       eliminar();
+       listar();
+        
+    }//GEN-LAST:event_btn_borrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -593,6 +697,8 @@ public class Read extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     
     void listar(){
@@ -641,6 +747,8 @@ catch (Exception e){
         
         
         
+        
+        
     }
     
     void Agregar(){
@@ -665,16 +773,42 @@ catch (Exception e){
                     limpiartable();
                     
                     }catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "DATOS NO GUARDADOS");
+                        //JOptionPane.showMessageDialog(null, "DATOS NO GUARDADOS");
                     }
         }
         void limpiartable(){
             for(int i = 0; i <= TablaDatos.getRowCount(); i++){
-                modelo.removeRow(i);
-                i = i - 1;
+                modelo.setRowCount(0);
             }
             
         }
+        
+        void eliminar (){
+            int fila = TablaDatos.getRowCount();
+            int id = Integer.parseInt(txt_id.getText());
+            
+            if (fila == 1){
+                JOptionPane.showMessageDialog(null,"SELECCIONE UNA FILA PARA BORRAR REGISTRO");
+                
+            } else{ 
+                try{
+                    String sql = "DELETE FROM rh.employee where ID =" +id;
+                    cn = con.getConnection();
+                    st = cn.createStatement();
+                    st.executeUpdate(sql);
+                    
+                    JOptionPane.showMessageDialog(null,"DATOS BORRADOS CORRECTAMENTE");
+                    
+                    limpiartable();
+                    
+                } catch (Exception e){
+                    
+                }
+            }
+        }
+        
+        
+        
     
     
     
